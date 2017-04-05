@@ -1,0 +1,10 @@
+[
+('String', 4),
+('ByteString', 4),
+('Text', 4),
+('reqCodec.Archive.Zip.CompressionMethod' , 2),
+('simCodec.Archive.Zip.CompressionMethod' , 2),
+('reqTest.QuickFuzz.Gen.Archive.Zip.EntryAction' , 2),
+('simTest.QuickFuzz.Gen.Archive.Zip.EntryAction' , 2)
+]
+

@@ -1,0 +1,9 @@
+[
+("String", 4), 
+("Text", 4), 
+("ByteString", 4), 
+("reqTest.QuickFuzz.Gen.Document.Html.HtmlAction", 100), 
+("simTest.QuickFuzz.Gen.Document.Html.HtmlAction",20), 
+("reqTest.QuickFuzz.Gen.Document.Html.AttributeAction",168),
+("simTest.QuickFuzz.Gen.Document.Html.AttributeAction",168)
+]

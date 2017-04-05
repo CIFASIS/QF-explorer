@@ -1,0 +1,1 @@
+[("String", 5), ("reqGraphics.Svg.Types.Tree", 14),  ("simGraphics.Svg.Types.Tree", 14), ("reqGraphics.Svg.Types.Element", 8), ("reqGraphics.Svg.Types.Texture",3), ("reqGraphics.Svg.Types.LineJoin",3), ("reqGraphics.Svg.Types.PathCommand", 10), ("reqGraphics.Svg.Types.Transformation", 7), ("reqGraphics.Svg.CssTypes.Number",9), ("reqGraphics.Svg.Types.Number",9)]

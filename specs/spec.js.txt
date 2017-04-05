@@ -1,0 +1,35 @@
+[("String", 5), 
+
+('reqLanguage.ECMAScript3.Syntax.Prop' , 3),
+('simLanguage.ECMAScript3.Syntax.Prop' , 3),
+
+('reqLanguage.ECMAScript3.Syntax.PrefixOp' , 7),
+('simLanguage.ECMAScript3.Syntax.PrefixOp' , 7),
+
+('reqLanguage.ECMAScript3.Syntax.UnaryAssignOp' , 4),
+('simLanguage.ECMAScript3.Syntax.UnaryAssignOp' , 4),
+
+('reqLanguage.ECMAScript3.Syntax.LValue' , 3),
+('simLanguage.ECMAScript3.Syntax.LValue' , 3),
+
+('reqLanguage.ECMAScript3.Syntax.InfixOp' , 23),
+('simLanguage.ECMAScript3.Syntax.InfixOp' , 23),
+
+('reqLanguage.ECMAScript3.Syntax.AssignOp' , 12),
+('simLanguage.ECMAScript3.Syntax.AssignOp' , 12),
+
+('reqLanguage.ECMAScript3.Syntax.Expression' , 21),
+('simLanguage.ECMAScript3.Syntax.Expression' , 21),
+
+('reqLanguage.ECMAScript3.Syntax.CaseClause' , 2),
+('simLanguage.ECMAScript3.Syntax.CaseClause' , 2),
+
+('reqLanguage.ECMAScript3.Syntax.ForInInit' , 2),
+('simLanguage.ECMAScript3.Syntax.ForInInit' , 2),
+
+('reqLanguage.ECMAScript3.Syntax.ForInit' , 3),
+('simLanguage.ECMAScript3.Syntax.ForInit' , 3),
+('reqLanguage.ECMAScript3.Syntax.Statement' , 19),
+('simLanguage.ECMAScript3.Syntax.Statement' , 19),
+
+]

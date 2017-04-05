@@ -1,0 +1,13 @@
+[
+('String', 4),
+('ByteString', 4),
+('Text', 4),
+('reqGraphics.EasyRender.Internal.Language' , 3),
+('reqGraphics.EasyRender.Internal.Color' , 2),
+('reqGraphics.EasyRender.Internal.Basefont' , 2),
+('reqTest.QuickFuzz.Gen.Document.PDF.DrawAction' , 22),
+('simGraphics.EasyRender.Internal.Language' , 3),
+('simGraphics.EasyRender.Internal.Color' , 2),
+('simGraphics.EasyRender.Internal.Basefont' , 2),
+('simTest.QuickFuzz.Gen.Document.PDF.DrawAction' , 22)
+]
