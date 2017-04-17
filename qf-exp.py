@@ -7,6 +7,7 @@ from src.freqs import write_freq_file
 
 from src.uniform import uniform
 from src.sparse import sparse
+from src.optimize import optimize
 
 """
 import subprocess
@@ -51,6 +52,9 @@ if __name__ == '__main__':
     parser.add_argument("spec", type = str)
     parser.add_argument("cmd", type = str)
     parser.add_argument("--mode", type = str, default = "uniform")
+    parser.add_argument("--objective", type = str, default = "max-stdout-out")
+    parser.add_argument("--iterations", type = int, default = 0xffffffff)
+
     parser.add_argument("--fuzzer", type = str, default = None)
     parser.add_argument("--verbose", action='store_true')
 
@@ -58,6 +62,9 @@ if __name__ == '__main__':
 
     mode = args.mode
     verbose = args.verbose 
+    objective = args.objective
+    iterations = args.iterations
+
     fuzzer = args.fuzzer 
     
     cmd = args.cmd
@@ -74,7 +81,7 @@ if __name__ == '__main__':
 
     elif mode == "optimize":
 
-        optimize(fmt, freq_spec, cmd, fuzzer, verbose) 
+        optimize(fmt, freq_spec, cmd, fuzzer, objective, iterations, verbose) 
 
 
     #print fmt
