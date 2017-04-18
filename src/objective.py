@@ -26,46 +26,73 @@ def outcount(cmd, outtype, verbose):
     return r
 
 
-"""
+from fuzzywuzzy import process as fuzzy
+from fuzzywuzzy.string_processing import StringProcessor
 
-from lsh import LSHCache
-cache = LSHCache()
-last = 0
-uniques = 0
+class FuzzyCount:
+    '''A parsed ELF file'''
 
-def outlsh(cmd, seeds):
+    def __init__(self, patterns, tolerance = 70):
+        self.fuzzy_patterns = list(patterns)
+        self.collected_patterns = list(patterns)
+        self.processor = StringProcessor.strip
+        self.tolerance = tolerance
 
-    global uniques, last, cache
+    def fitness(self, cmd, outtype, verbose):
+    
+        exe = cmd[0]
+        patterns = []
+        out_file = "out.dat"
+        r = 0
 
-    r = 0
-    all_files = []
-    last_uniques = uniques
+        if outtype == ["stdout"]:
+            cmd_shell = exe + ' "'+('" "'.join(cmd[1:]))+'" > ' + out_file 
+            process = Popen(cmd_shell, stdin=PIPE, stdout=PIPE, stderr=DEVNULL, shell=1)
 
-    for x, y, files in walk(seeds):
-        for f in files:
-            all_files.append(x + "/" + f)
+        elif outtype == ["stderr"]:
+            cmd_shell = exe + ' "'+('" "'.join(cmd[1:]))+'" 2> ' + out_file
+            process = Popen(cmd_shell, stdin=PIPE, stdout=PIPE, stderr=DEVNULL, shell=1)
 
-    for filename in all_files:
-        prepared_cmd = cmd.replace("@@",filename).split(" ")
-        process = Popen(prepared_cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
-        out, err = process.communicate()
-        rc = process.returncode
-        x = cache.insert(out.replace(filename,"").split(), last)
-        if x == []:
-            uniques = uniques + 1
-        
-        last = last + 1
+        else:
+            print "ERROR"
+            assert(0)
 
-    return 100.0 * (uniques - last_uniques) / len(all_files)
+        out, _ = process.communicate()
+        patterns = open(out_file,"r+").read().split("\n")
+         
 
-def aflcount(cmd, seeds):
-    cmd = "./afl-count -m none -i "+seeds+" -o .afl-traces -- "+cmd
-    #print(cmd)
-    out = check_output(cmd, shell=True)
+        if self.fuzzy_patterns == []: # just collect patterns
+            for line in patterns:
 
-    try:
-      return int(out)
-    except:
-      return -1
+                line = self.processor(line)
 
-"""
+                if line == '' or (not line[0].isalpha()):
+                    continue
+
+                if line not in self.collected_patterns:
+                    if self.collected_patterns == []:
+                        self.collected_patterns.append(line) 
+                   
+                    if fuzzy.extractOne(line, self.collected_patterns, processor=None)[1] < self.tolerance:
+                        self.collected_patterns.append(line)
+
+            return 0 # no need to continue
+
+
+        for line in patterns:
+            line = self.processor(line)
+
+            if line == '' or (not line[0].isalpha()):
+                continue
+
+            if line not in self.fuzzy_patterns:
+
+                if fuzzy.extractOne(line, self.fuzzy_patterns, processor=None)[1] < self.tolerance:
+                    r = r + 1
+
+                if fuzzy.extractOne(line, self.collected_patterns, processor=None)[1] < self.tolerance:
+                    if line not in self.collected_patterns:
+                        self.collected_patterns.append(line)
+
+
+        return r
