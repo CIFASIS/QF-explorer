@@ -32,7 +32,7 @@ from fuzzywuzzy.string_processing import StringProcessor
 class FuzzyCount:
     '''A parsed ELF file'''
 
-    def __init__(self, patterns, tolerance = 70):
+    def __init__(self, patterns, tolerance = 80):
         self.fuzzy_patterns = list(patterns)
         self.collected_patterns = list(patterns)
         self.processor = StringProcessor.strip
@@ -66,14 +66,15 @@ class FuzzyCount:
 
                 line = self.processor(line)
 
-                if line == '' or (not line[0].isalpha()):
+                if len(line) <= 4: #or (not line[0].isalpha()):
                     continue
 
                 if line not in self.collected_patterns:
                     if self.collected_patterns == []:
                         self.collected_patterns.append(line) 
-                   
-                    if fuzzy.extractOne(line, self.collected_patterns, processor=None)[1] < self.tolerance:
+
+                    _, match = fuzzy.extractOne(line, self.collected_patterns, processor=None) 
+                    if match < self.tolerance:
                         self.collected_patterns.append(line)
 
             return 0 # no need to continue
@@ -82,15 +83,17 @@ class FuzzyCount:
         for line in patterns:
             line = self.processor(line)
 
-            if line == '' or (not line[0].isalpha()):
+            if len(line) <= 4: #or (not line[0].isalpha()):
                 continue
 
             if line not in self.fuzzy_patterns:
 
-                if fuzzy.extractOne(line, self.fuzzy_patterns, processor=None)[1] < self.tolerance:
-                    r = r + 1
+                _, match = fuzzy.extractOne(line, self.fuzzy_patterns, processor=None)
+                if match < self.tolerance:
+                    r = r + (100-match)
 
-                if fuzzy.extractOne(line, self.collected_patterns, processor=None)[1] < self.tolerance:
+                _, match = fuzzy.extractOne(line, self.collected_patterns, processor=None) 
+                if match < self.tolerance:
                     if line not in self.collected_patterns:
                         self.collected_patterns.append(line)
 

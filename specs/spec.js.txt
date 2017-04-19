@@ -1,4 +1,7 @@
-[("String", 5), 
+[
+("String", 4),
+("Text", 4),
+("ByteString", 4),
 
 ('reqLanguage.ECMAScript3.Syntax.Prop' , 3),
 ('simLanguage.ECMAScript3.Syntax.Prop' , 3),
